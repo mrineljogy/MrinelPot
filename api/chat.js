@@ -8,13 +8,12 @@ export const config = {
 
 const apiKey = process.env.GEMINI_API_KEY || process.env.GOOGLE_GENERATIVE_AI_API_KEY;
 
-// FIX: Force the SDK to use the stable production 'v1' API instead of 'v1beta'
-const google = createGoogleGenerativeAI({
+// Force initialization of the core Google SDK Provider instance
+const googleProvider = createGoogleGenerativeAI({
   apiKey,
-  apiVersion: 'v1', 
 });
 
-// Simple in-memory rate limiter 
+// Simple in-memory rate limiter per Vercel Edge instance
 const rateLimitMap = new Map();
 const RATE_LIMIT = 10;
 const WINDOW_MS = 60 * 1000;
@@ -24,6 +23,7 @@ export default async function handler(req) {
     return new Response('Method not allowed', { status: 405 });
   }
 
+  // Rate Limiting Logic
   const ip = req.headers.get('x-forwarded-for') || 'anonymous';
   const now = Date.now();
   const limitData = rateLimitMap.get(ip);
@@ -48,9 +48,10 @@ export default async function handler(req) {
       return new Response('Invalid or empty messages array', { status: 400 });
     }
 
-    // FIX: Using the verified, globally active stable model identifier
+    // FIX: Using the explicit production model object structure.
+    // This forces the SDK to bypass string generation and route directly to the active endpoint.
     const result = streamText({
-      model: google('gemini-1.5-flash'), 
+      model: googleProvider.models.Gemini15Flash, 
       system: `You are Mrinel Jogy's AI assistant on her personal portfolio website. Answer in first person as Mrinel, using "I", "my", and "me" naturally. Keep the tone friendly, concise, and professional.
 
 Use ONLY the information in the portfolio context below. Do not invent details, dates, metrics, links, or opinions that are not supported by the context. If someone asks about something not covered, say that I don't have that information here and suggest they reach out to me directly through the links on the website.
