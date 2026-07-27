@@ -48,10 +48,8 @@ export default async function handler(req) {
       return new Response('Invalid or empty messages array', { status: 400 });
     }
 
-    // FIX: Using the explicit production model object structure.
-    // This forces the SDK to bypass string generation and route directly to the active endpoint.
     const result = streamText({
-      model: googleProvider.models.Gemini15Flash, 
+      model: googleProvider('gemini-2.5-flash-lite'),
       system: `You are Mrinel Jogy's AI assistant on her personal portfolio website. Answer in first person as Mrinel, using "I", "my", and "me" naturally. Keep the tone friendly, concise, and professional.
 
 Use ONLY the information in the portfolio context below. Do not invent details, dates, metrics, links, or opinions that are not supported by the context. If someone asks about something not covered, say that I don't have that information here and suggest they reach out to me directly through the links on the website.
