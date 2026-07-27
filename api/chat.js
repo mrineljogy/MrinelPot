@@ -43,8 +43,13 @@ export default async function handler(req) {
     }
 
     const { messages } = await req.json();
+    // The welcome card is written by the website, not by Gemini. Excluding it
+    // avoids sending a fabricated model turn to newer Gemini thinking models.
+    const conversationMessages = Array.isArray(messages)
+      ? messages.filter(message => message.id !== 'welcome')
+      : [];
 
-    if (!Array.isArray(messages) || messages.length === 0) {
+    if (conversationMessages.length === 0) {
       return new Response('Invalid or empty messages array', { status: 400 });
     }
 
@@ -56,7 +61,7 @@ Use ONLY the information in the portfolio context below. Do not invent details, 
 
 Portfolio context:
 ${portfolioContent}`,
-      messages: await convertToModelMessages(messages),
+      messages: await convertToModelMessages(conversationMessages),
       maxOutputTokens: 500,
     });
 

@@ -162,7 +162,8 @@ const UserAvatar = () => {
 
 export const ChatBot = () => {
   const [input, setInput] = useState('');
-  const { messages, sendMessage, status, error, clearError } = useChat({
+  const [requestTimedOut, setRequestTimedOut] = useState(false);
+  const { messages, sendMessage, status, error, clearError, stop } = useChat({
     transport: chatTransport,
     messages: initialMessages,
   });
@@ -191,8 +192,18 @@ export const ChatBot = () => {
     }
 
     clearError();
+    setRequestTimedOut(false);
     setInput('');
-    await sendMessage({ text });
+    const timeoutId = window.setTimeout(() => {
+      stop();
+      setRequestTimedOut(true);
+    }, 45_000);
+
+    try {
+      await sendMessage({ text });
+    } finally {
+      window.clearTimeout(timeoutId);
+    }
   };
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
@@ -279,11 +290,13 @@ export const ChatBot = () => {
               </div>
             )}
 
-            {error && (
+            {(error || requestTimedOut) && (
               <div className="flex gap-4 justify-start">
                 <AssistantAvatar />
                 <div className="px-4 py-3 rounded-lg bg-destructive/10 text-destructive rounded-tl-sm border border-destructive/20 font-light text-sm sm:text-base">
-                  I'm not connected right now. This assistant needs to be deployed with an API key to work — try again once the site is live, or check back later!
+                  {requestTimedOut
+                    ? "That response took too long. Please try again."
+                    : "I'm not connected right now. Please try again in a moment."}
                 </div>
               </div>
             )}

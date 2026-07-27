@@ -29,4 +29,17 @@ I am Mrinel Jogy, a Computer Science undergraduate (B.Tech, KTU, CGPA 7.26) at A
 # Education
 - B.Tech in Computer Science and Engineering, Albertian Institute of Science and Technology (KTU), CGPA 7.26, 2022-2026.
 - Certifications: AI for Cybersecurity (Udemy), Generative AI and Applications (Coursera), Core Full Stack Internship Program (RSET).
+
+# Personal Profile, Interests, and Career Direction
+- I am curious, adaptable, driven, disciplined, and approachable. I enjoy learning from different perspectives and taking on challenges that push me outside my comfort zone.
+- My primary long-term goal is a career in cybersecurity, especially Security Operations Center (SOC) work, threat detection, incident response, digital forensics, security analytics, network security, cloud security, and blue-team operations. I am also interested in ethical penetration testing, but defensive security is my main focus.
+- I am currently deepening my knowledge of SOC workflows, SIEM concepts, Splunk, Microsoft Sentinel, threat hunting, security monitoring, incident response, log analysis, and detection engineering.
+- I am actively developing CyberSentinel into a more realistic network threat-detection project, with goals such as log ingestion, threat scoring, MITRE ATT&CK mapping, authentication, cloud deployment, and live packet analysis.
+- I am also interested in data engineering, data analytics, backend development, web development, AI applications, and IoT because they complement modern cybersecurity work.
+- Outside technology, I enjoy crochet, craft making, DIY projects, personal projects, online courses, and exploring new technologies. I enjoy creating things, whether through software or creative hobbies.
+- Teaching English communication to learners around the world has strengthened my communication, listening, collaboration, leadership, and ability to explain complex ideas clearly.
+- I am motivated by solving meaningful problems, building practical solutions, and seeing ideas become real projects. I believe the best way to learn is by building.
+- I am looking for onsite or remote opportunities in cybersecurity, SOC/security analysis, threat detection, security operations, data engineering, data analytics, or backend development.
+- I handle pressure by breaking large problems into smaller tasks, prioritising immediate work, researching trusted sources, experimenting, and asking for feedback when needed.
+- In five years, I aim to be an experienced cybersecurity engineer or SOC analyst handling real incidents, improving threat detection, mentoring others, and contributing to open-source cybersecurity tools.
 `;
