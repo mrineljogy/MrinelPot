@@ -6,17 +6,15 @@ export const config = {
   runtime: 'edge',
 };
 
-const apiKey =
-  typeof process !== 'undefined'
-    ? process.env.GEMINI_API_KEY ?? process.env.GOOGLE_GENERATIVE_AI_API_KEY
-    : undefined;
+const apiKey = process.env.GEMINI_API_KEY || process.env.GOOGLE_GENERATIVE_AI_API_KEY;
 
+// FIX: Force the SDK to use the stable production 'v1' API instead of 'v1beta'
 const google = createGoogleGenerativeAI({
   apiKey,
+  apiVersion: 'v1', 
 });
 
-// Simple in-memory rate limiter (Note: this is per-instance in Vercel)
-// Allows 10 requests per minute per IP
+// Simple in-memory rate limiter 
 const rateLimitMap = new Map();
 const RATE_LIMIT = 10;
 const WINDOW_MS = 60 * 1000;
@@ -26,7 +24,6 @@ export default async function handler(req) {
     return new Response('Method not allowed', { status: 405 });
   }
 
-  // 1. Rate Limiting
   const ip = req.headers.get('x-forwarded-for') || 'anonymous';
   const now = Date.now();
   const limitData = rateLimitMap.get(ip);
@@ -45,20 +42,15 @@ export default async function handler(req) {
       return new Response('Missing GEMINI_API_KEY environment variable', { status: 500 });
     }
 
-    // 2. Extract UI messages from body
     const { messages } = await req.json();
 
-    if (!Array.isArray(messages)) {
-      return new Response('Missing messages array', { status: 400 });
+    if (!Array.isArray(messages) || messages.length === 0) {
+      return new Response('Invalid or empty messages array', { status: 400 });
     }
 
-    if (messages.length === 0) {
-      return new Response('Messages array cannot be empty', { status: 400 });
-    }
-
-    // 3. Call Gemini Flash Lite with the portfolio content as context
+    // FIX: Using the verified, globally active stable model identifier
     const result = streamText({
-       model:  google('models/gemini-1.5-flash'),
+      model: google('gemini-1.5-flash'), 
       system: `You are Mrinel Jogy's AI assistant on her personal portfolio website. Answer in first person as Mrinel, using "I", "my", and "me" naturally. Keep the tone friendly, concise, and professional.
 
 Use ONLY the information in the portfolio context below. Do not invent details, dates, metrics, links, or opinions that are not supported by the context. If someone asks about something not covered, say that I don't have that information here and suggest they reach out to me directly through the links on the website.
@@ -69,7 +61,6 @@ ${portfolioContent}`,
       maxOutputTokens: 500,
     });
 
-    // 4. Return the AI SDK UI message stream expected by useChat
     return result.toUIMessageStreamResponse({
       onError(error) {
         console.error('Gemini stream error:', error);
