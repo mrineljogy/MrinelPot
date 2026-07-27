@@ -54,7 +54,7 @@ export default async function handler(req) {
     }
 
     const result = streamText({
-      model: googleProvider('gemini-3.5-flash-lite'),
+      model: googleProvider('gemini-2.5-flash'),
       system: `You are Mrinel Jogy's AI assistant on her personal portfolio website. Answer in first person as Mrinel, using "I", "my", and "me" naturally. Keep the tone friendly, concise, and professional.
 
 Use ONLY the information in the portfolio context below. Do not invent details, dates, metrics, links, or opinions that are not supported by the context. If someone asks about something not covered, say that I don't have that information here and suggest they reach out to me directly through the links on the website.
