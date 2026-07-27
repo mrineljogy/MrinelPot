@@ -58,7 +58,7 @@ export default async function handler(req) {
 
     // 3. Call Gemini Flash Lite with the portfolio content as context
     const result = streamText({
-      model: google('gemini-2.5-flash-lite'),
+       model: google('gemini-1.5-flash'),
       system: `You are Mrinel Jogy's AI assistant on her personal portfolio website. Answer in first person as Mrinel, using "I", "my", and "me" naturally. Keep the tone friendly, concise, and professional.
 
 Use ONLY the information in the portfolio context below. Do not invent details, dates, metrics, links, or opinions that are not supported by the context. If someone asks about something not covered, say that I don't have that information here and suggest they reach out to me directly through the links on the website.
