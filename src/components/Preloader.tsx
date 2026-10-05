@@ -1,16 +1,20 @@
 import { useState, useEffect, type FormEvent } from "react";
+import { Sparkles } from "lucide-react";
 import DigitalRain from "@/components/DigitalRain";
 
 interface PreloaderProps {
   onComplete?: () => void;
+  onStartAudio?: () => void;
 }
 
-export const Preloader = ({ onComplete }: PreloaderProps) => {
+export const Preloader = ({ onComplete, onStartAudio }: PreloaderProps) => {
   const [count, setCount] = useState(0);
   const [exitAnimation, setExitAnimation] = useState(false);
   const [visible, setVisible] = useState(true);
   const [combination, setCombination] = useState([0, 0, 0]);
   const [showLock, setShowLock] = useState(false);
+  const [showEntrance, setShowEntrance] = useState(false);
+  const [isEntering, setIsEntering] = useState(false);
   const [lockError, setLockError] = useState(false);
 
   useEffect(() => {
@@ -62,6 +66,14 @@ export const Preloader = ({ onComplete }: PreloaderProps) => {
     }
     setLockError(false);
     setShowLock(false);
+    setShowEntrance(true);
+  };
+
+  const enterPortfolio = () => {
+    if (isEntering) return;
+
+    setIsEntering(true);
+    onStartAudio?.();
     setExitAnimation(true);
     window.setTimeout(() => {
       setVisible(false);
@@ -183,6 +195,33 @@ export const Preloader = ({ onComplete }: PreloaderProps) => {
             {lockError && <p className="mt-3 text-xs text-[#ffb6a4]">That combination doesn’t unlock it.</p>}
             <button className="lock-unlock-button mt-6" type="submit">Unlock portfolio</button>
           </form>
+        </div>
+      )}
+
+      {showEntrance && (
+        <div className={`entrance-modal ${isEntering ? "entrance-modal-leave" : ""}`} role="dialog" aria-modal="true" aria-labelledby="entrance-title">
+          <div className="entrance-network entrance-network-one" aria-hidden="true" />
+          <div className="entrance-network entrance-network-two" aria-hidden="true" />
+          <div className="entrance-grid" aria-hidden="true" />
+          <div className="entrance-modal-card">
+            <div className="entrance-orbit entrance-orbit-one" aria-hidden="true" />
+            <div className="entrance-orbit entrance-orbit-two" aria-hidden="true" />
+            <div className="entrance-signal" aria-hidden="true">
+              <span />
+              <span />
+              <span />
+            </div>
+            <p className="entrance-eyebrow">Secure link established</p>
+            <h2 id="entrance-title">The signal is yours.</h2>
+            <p className="entrance-copy">Step into a world of ideas, systems, and pure presence.</p>
+            <button className="sparkle-button" type="button" onClick={enterPortfolio} disabled={isEntering}>
+              <span className="sparkle-button-backdrop" aria-hidden="true" />
+              <span className="sparkle-button-spark" aria-hidden="true" />
+              <Sparkles aria-hidden="true" />
+              <span>{isEntering ? "Entering..." : "Step in with pure presence"}</span>
+            </button>
+            <p className="entrance-note">Sound begins on entry</p>
+          </div>
         </div>
       )}
     </div>
