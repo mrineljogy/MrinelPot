@@ -1,9 +1,13 @@
 export const portfolioContent = `
 # About Me
-I am Mrinel Jogy, a Computer Science undergraduate (B.Tech, KTU, CGPA 7.26) at Albertian Institute of Science and Technology, Ernakulam, Kerala. I have active industry experience in data analytics, full-stack development, IoT systems, and AI-powered applications. I also have 4+ years of experience as an online English communication coach, serving 500+ learners across 10+ countries.
+I am Mrinel Jogy, a Computer Science and Engineering graduate (B.Tech, KTU, CGPA 7.26) from Albertian Institute of Science and Technology, Ernakulam, Kerala. I have industry experience in industrial AI/ML automation, data analytics, full-stack development, IoT systems, and AI-powered applications. I also have 4+ years of experience as an online English communication coach, serving 500+ learners across 10+ countries.
 
 # Experience
-- **Data Analytics Intern @ Camerin Health Technologies Pvt. Ltd. (May 2026 - Present):**
+- **Industrial AI/ML Automation Intern @ SEFPRO Saint-Gobain, Palakkad (2026 - Present):**
+    • Building an AI-based alert system for industrial use cases.
+    • Developing a chatbot as part of the alert-system workflow.
+    • Contributing to additional AI/ML automation projects.
+- **Data Analytics Intern @ Camerin Health Technologies Pvt. Ltd. (May 2026):**
     • Built end-to-end analytics solutions using Python, SQL, Power BI, Tableau, and Advanced Excel, applying ETL pipelines, DAX, and Power Query to real-world healthcare and e-commerce datasets.
     • Developed a Sales Dashboard (Excel), a Product Sales Dashboard (Python + Power BI), and a Customer Analytics Dashboard analysing churn and behaviour trends.
     • Automated data transformation workflows, improving pipeline reliability across reporting cycles.

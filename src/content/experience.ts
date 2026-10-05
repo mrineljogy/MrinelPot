@@ -10,10 +10,21 @@ export interface ExperienceItem {
 
 export const workExperience: ExperienceItem[] = [
   {
+    title: "Industrial AI/ML Automation Intern",
+    organization: "SEFPRO Saint-Gobain, Palakkad",
+    period: "2026 - Present",
+    current: true,
+    logo: "",
+    responsibilities: [
+      "Building an AI-based alert system for industrial use cases.",
+      "Developing a chatbot as part of the alert-system workflow.",
+      "Contributing to additional AI/ML automation projects."
+    ]
+  },
+  {
     title: "Data Analytics Intern",
     organization: "Camerin Health Technologies Pvt. Ltd.",
-    period: "May 2026 - Present",
-    current: true,
+    period: "May 2026",
     logo: "",
     responsibilities: [
       "Built end-to-end analytics solutions using Python, SQL, Power BI, Tableau, and Advanced Excel, applying ETL pipelines, DAX, and Power Query to real-world healthcare and e-commerce datasets.",
