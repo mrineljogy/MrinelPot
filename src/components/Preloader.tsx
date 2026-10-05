@@ -203,9 +203,8 @@ export const Preloader = ({ onComplete, onStartAudio }: PreloaderProps) => {
           <div className="entrance-network entrance-network-one" aria-hidden="true" />
           <div className="entrance-network entrance-network-two" aria-hidden="true" />
           <div className="entrance-grid" aria-hidden="true" />
+          <div className="entrance-purple-orbit" aria-hidden="true" />
           <div className="entrance-modal-card">
-            <div className="entrance-orbit entrance-orbit-one" aria-hidden="true" />
-            <div className="entrance-orbit entrance-orbit-two" aria-hidden="true" />
             <div className="entrance-signal" aria-hidden="true">
               <span />
               <span />
