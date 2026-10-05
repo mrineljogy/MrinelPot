@@ -69,11 +69,11 @@ export const Preloader = ({ onComplete, onStartAudio }: PreloaderProps) => {
     setShowEntrance(true);
   };
 
-  const enterPortfolio = () => {
+  const enterPortfolio = (withMusic: boolean) => {
     if (isEntering) return;
 
     setIsEntering(true);
-    onStartAudio?.();
+    if (withMusic) onStartAudio?.();
     setExitAnimation(true);
     window.setTimeout(() => {
       setVisible(false);
@@ -214,13 +214,18 @@ export const Preloader = ({ onComplete, onStartAudio }: PreloaderProps) => {
             <p className="entrance-eyebrow">Secure link established</p>
             <h2 id="entrance-title">The signal is yours.</h2>
             <p className="entrance-copy">Step into a world of ideas, systems, and pure presence.</p>
-            <button className="sparkle-button" type="button" onClick={enterPortfolio} disabled={isEntering}>
-              <span className="sparkle-button-backdrop" aria-hidden="true" />
-              <span className="sparkle-button-spark" aria-hidden="true" />
-              <Sparkles aria-hidden="true" />
-              <span>{isEntering ? "Entering..." : "Step in with pure presence"}</span>
-            </button>
-            <p className="entrance-note">Sound begins on entry</p>
+            <div className="entrance-actions">
+              <button className="sparkle-button" type="button" onClick={() => enterPortfolio(true)} disabled={isEntering}>
+                <span className="sparkle-button-backdrop" aria-hidden="true" />
+                <span className="sparkle-button-spark" aria-hidden="true" />
+                <Sparkles aria-hidden="true" />
+                <span>{isEntering ? "Entering..." : "Step in with pure presence"}</span>
+              </button>
+              <button className="quiet-enter-button" type="button" onClick={() => enterPortfolio(false)} disabled={isEntering}>
+                {isEntering ? "Entering..." : "Just enter"}
+              </button>
+            </div>
+            <p className="entrance-note">First option includes music · Just enter stays silent</p>
           </div>
         </div>
       )}
